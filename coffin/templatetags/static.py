@@ -1,7 +1,7 @@
 try:
     from urllib.parse import urljoin
 except ImportError:     # Python 2
-    from urlparse import urljoin
+    from urllib.parse import urljoin
 
 from coffin.template import Library
 from jinja2.ext import Extension
@@ -105,7 +105,7 @@ class StaticExtension(PrefixExtension):
 
     def parse(self, parser):
         stream = parser.stream
-        lineno = stream.next().lineno
+        lineno = next(stream).lineno
 
         path = parser.parse_expression()
         call_node = self.call_method('get_statc_url', args=[path])

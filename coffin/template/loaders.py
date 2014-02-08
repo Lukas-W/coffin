@@ -14,7 +14,7 @@ def jinja_loader_from_django_loader(django_loader, args=None):
     """
     if not match_loader.match(django_loader):
         return None
-    for substr, func in _JINJA_LOADER_BY_DJANGO_SUBSTR.iteritems():
+    for substr, func in _JINJA_LOADER_BY_DJANGO_SUBSTR.items():
         if substr in django_loader:
             return func(*(args or []))
     return None

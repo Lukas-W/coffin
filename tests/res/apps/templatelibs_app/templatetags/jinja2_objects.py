@@ -2,7 +2,7 @@
 """
 
 def hello_func(name):
-    return u"Hello %s" % name
+    return "Hello %s" % name
 
 from coffin.template import Library
 register = Library()

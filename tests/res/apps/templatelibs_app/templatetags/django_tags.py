@@ -5,7 +5,7 @@ from django.template import Node
 
 class FooNode(Node):
     def render(self, context):
-        return u'{foo}'
+        return '{foo}'
 
 def do_foo(parser, token):
     return FooNode()

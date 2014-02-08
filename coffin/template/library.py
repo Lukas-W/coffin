@@ -4,6 +4,7 @@ import types
 from coffin.interop import (
     DJANGO, JINJA2,
     guess_filter_type, jinja2_filter_to_django, django_filter_to_jinja2)
+import collections
 
 
 __all__ = ['Library']
@@ -68,7 +69,7 @@ class Library(DjangoLibrary):
         from copy import copy
         result = cls()
         result.tags = copy(django_library.tags)
-        for name, func in django_library.filters.iteritems():
+        for name, func in django_library.filters.items():
             result._register_filter(name, func, type='django')
         return result
 
@@ -81,7 +82,7 @@ class Library(DjangoLibrary):
             # @register.test()
             return inner
         elif func == None:
-            if (callable(name)):
+            if (isinstance(name, collections.Callable)):
                 # register.test()
                 return inner(name)
             else:
@@ -106,7 +107,7 @@ class Library(DjangoLibrary):
             # @register.object()
             return inner
         elif func == None:
-            if (callable(name)):
+            if (isinstance(name, collections.Callable)):
                 # register.object()
                 return inner(name)
             else:
@@ -190,7 +191,7 @@ class Library(DjangoLibrary):
             # @register.filter()
             return filter_function
         elif filter_func == None:
-            if (callable(name)):
+            if (isinstance(name, collections.Callable)):
                 # @register.filter
                 return filter_function(name)
             else:

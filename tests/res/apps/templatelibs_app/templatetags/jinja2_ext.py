@@ -8,7 +8,7 @@ class FooExtension(Extension):
     tags = set(['foo'])
 
     def parse(self, parser):
-        parser.stream.next()
+        next(parser.stream)
         return nodes.Const('{foo}')
 
 
@@ -22,7 +22,7 @@ class FooWithConfigExtension(Extension):
         )
 
     def parse(self, parser):
-        parser.stream.next()
+        next(parser.stream)
         return nodes.Const('{%s}' % self.environment.foo_custom_output)
 
 

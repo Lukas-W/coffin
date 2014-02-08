@@ -26,14 +26,14 @@ register.object(url)
 @register.jinja2_filter(jinja2_only=True)
 def timesince(value, *arg):
     if value is None or isinstance(value, Undefined):
-        return u''
+        return ''
     from django.utils.timesince import timesince
     return timesince(value, *arg)
 
 @register.jinja2_filter(jinja2_only=True)
 def timeuntil(value, *args):
     if value is None or isinstance(value, Undefined):
-        return u''
+        return ''
     from django.utils.timesince import timeuntil
     return timeuntil(value, *args)
 
@@ -41,7 +41,7 @@ def timeuntil(value, *args):
 def date(value, arg=None):
     """Formats a date according to the given format."""
     if value is None or isinstance(value, Undefined):
-        return u''
+        return ''
     from django.conf import settings
     from django.utils import formats
     from django.utils.dateformat import format
@@ -59,7 +59,7 @@ def date(value, arg=None):
 def time(value, arg=None):
     """Formats a time according to the given format."""
     if value is None or isinstance(value, Undefined):
-        return u''
+        return ''
     from django.conf import settings
     from django.utils import formats
     from django.utils.dateformat import time_format
@@ -132,7 +132,7 @@ def floatformat(value, arg=-1):
     return result
 
 @register.jinja2_filter(jinja2_only=True)
-def default(value, default_value=u'', boolean=True):
+def default(value, default_value='', boolean=True):
     """Make the default filter, if used without arguments, behave like
     Django's own version.
     """

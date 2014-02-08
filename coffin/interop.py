@@ -18,7 +18,7 @@ General notes:
 """
 
 import inspect
-from django.utils.safestring import SafeUnicode, SafeData, EscapeData
+from django.utils.safestring import SafeText, SafeData, EscapeData
 from jinja2 import Markup, environmentfilter, Undefined
 
 
@@ -89,7 +89,7 @@ def jinja2_filter_to_django(filter_func):
         # a custom replace() method that is immume to Django's escape()
         # attempts.
         #if isinstance(v, Markup):
-        #    return SafeUnicode(v)         # jinja is always unicode
+        #    return SafeText(v)         # jinja is always unicode
         # ... Jinja does not have a EscapeData equivalent
         return v
     def wrapped(value, *args, **kwargs):

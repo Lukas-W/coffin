@@ -6,7 +6,7 @@ class SimpleTemplateResponse(django_response.SimpleTemplateResponse):
     def resolve_template(self, template):
         if isinstance(template, (list, tuple)):
             return loader.select_template(template)
-        elif isinstance(template, basestring):
+        elif isinstance(template, str):
             return loader.get_template(template)
         else:
             return template

@@ -12,7 +12,7 @@ from django.template import Origin
 from django.test import signals
 
 # Override default library class with ours
-from library import *
+from coffin.template.library import *
 
 class Template(_Jinja2Template):
     '''Fixes the incompabilites between Jinja2's template class and

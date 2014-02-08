@@ -20,7 +20,7 @@ class LoadExtension(Extension):
 
     def parse(self, parser):
         while not parser.stream.current.type == 'block_end':
-            parser.stream.next()
+            next(parser.stream)
         return []
 
 
@@ -124,7 +124,7 @@ class URLExtension(Extension):
     def parse(self, parser):
         stream = parser.stream
 
-        tag = stream.next()
+        tag = next(stream)
 
         # get view name
         if stream.current.test('string'):
@@ -137,7 +137,7 @@ class URLExtension(Extension):
             # token, we do so ourselves, and let parse_expression() handle all
             # other cases.
             if stream.look().test('string'):
-                token = stream.next()
+                token = next(stream)
                 viewname = nodes.Const(token.value, lineno=token.lineno)
             else:
                 viewname = parser.parse_expression()
@@ -147,10 +147,10 @@ class URLExtension(Extension):
             name_allowed = True
             while True:
                 if stream.current.test_any('dot', 'sub', 'colon'):
-                    bits.append(stream.next())
+                    bits.append(next(stream))
                     name_allowed = True
                 elif stream.current.test('name') and name_allowed:
-                    bits.append(stream.next())
+                    bits.append(next(stream))
                     name_allowed = False
                 else:
                     break
@@ -338,7 +338,7 @@ class CacheExtension(Extension):
             raise TemplateSyntaxError('"%s" tag got a non-integer timeout '
                 'value: %r' % (list(self.tags)[0], expire_time), lineno)
 
-        args_string = u':'.join([urlquote(v) for v in vary_on])
+        args_string = ':'.join([urlquote(v) for v in vary_on])
         args_md5 = md5(args_string)
         cache_key = 'template.cache.%s.%s' % (fragm_name, args_md5.hexdigest())
         value = cache.get(cache_key)
@@ -383,7 +383,7 @@ class CsrfTokenExtension(Extension):
     tags = set(['csrf_token'])
 
     def parse(self, parser):
-        lineno = parser.stream.next().lineno
+        lineno = next(parser.stream).lineno
         return nodes.Output([
             self.call_method('_render', [nodes.Name('csrf_token', 'load')]),
         ]).set_lineno(lineno)

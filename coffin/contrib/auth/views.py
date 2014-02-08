@@ -8,14 +8,14 @@ from django.contrib.auth.views import *
 from coffin.shortcuts import render_to_response
 from coffin.template import RequestContext, loader
 
-exec inspect.getsource(logout)
-exec inspect.getsource(password_change_done)
-exec inspect.getsource(password_reset)
-exec inspect.getsource(password_reset_confirm)
-exec inspect.getsource(password_reset_done)
-exec inspect.getsource(password_reset_complete)
+exec(inspect.getsource(logout))
+exec(inspect.getsource(password_change_done))
+exec(inspect.getsource(password_reset))
+exec(inspect.getsource(password_reset_confirm))
+exec(inspect.getsource(password_reset_done))
+exec(inspect.getsource(password_reset_complete))
 
-exec inspect.getsource(password_change.view_func)
+exec(inspect.getsource(password_change.view_func))
 password_change = login_required(password_change)
 
 # XXX: this function uses a decorator, which calls functools.wraps, which compiles the code

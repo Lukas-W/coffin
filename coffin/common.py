@@ -5,6 +5,7 @@ from django import dispatch
 from jinja2 import Environment, loaders
 from jinja2 import defaults as jinja2_defaults
 from coffin.template import Library as CoffinLibrary
+import collections
 
 __all__ = ('env',)
 
@@ -32,7 +33,7 @@ class CoffinEnvironment(Environment):
         self.globals.update(globals)
         self.tests = all_ext['tests'].copy()
         self.tests.update(tests)
-        for key, value in all_ext['attrs'].items():
+        for key, value in list(all_ext['attrs'].items()):
             setattr(self, key, value)
 
         from coffin.template import Template as CoffinTemplate
@@ -57,7 +58,7 @@ class CoffinEnvironment(Environment):
                 loaders.append(loader)
             else:
                 loader_name = args = None
-                if isinstance(loader, basestring):
+                if isinstance(loader, str):
                     loader_name = loader
                     args = []
                 elif isinstance(loader, (tuple, list)):
@@ -158,13 +159,13 @@ class CoffinEnvironment(Environment):
             retval = {}
             setting = getattr(settings, setting, {})
             if isinstance(setting, dict):
-                for key, value in setting.iteritems():
-                    if values_must_be_callable and not callable(value):
+                for key, value in setting.items():
+                    if values_must_be_callable and not isinstance(value, collections.Callable):
                         value = get_callable(value)
                     retval[key] = value
             else:
                 for value in setting:
-                    if values_must_be_callable and not callable(value):
+                    if values_must_be_callable and not isinstance(value, collections.Callable):
                         value = get_callable(value)
                     retval[value.__name__] = value
             return retval

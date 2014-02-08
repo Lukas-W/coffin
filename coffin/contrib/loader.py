@@ -22,7 +22,7 @@ from django.template.loaders import app_directories, filesystem
 JINJA2_DEFAULT_TEMPLATE_EXTENSION = getattr(settings,
     'JINJA2_DEFAULT_TEMPLATE_EXTENSION', ('.jinja',))
 
-if isinstance(JINJA2_DEFAULT_TEMPLATE_EXTENSION, basestring):
+if isinstance(JINJA2_DEFAULT_TEMPLATE_EXTENSION, str):
     JINJA2_DEFAULT_TEMPLATE_EXTENSION = (JINJA2_DEFAULT_TEMPLATE_EXTENSION,)
 
 

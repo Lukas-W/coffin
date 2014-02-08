@@ -18,7 +18,7 @@ def django_safe_output(value):
     return mark_safe(value)
 
 def unsafe_output(value):
-    return unicode(value)
+    return str(value)
 
 
 def django_raw_output(value):
@@ -29,7 +29,7 @@ def django_escape_output(value):
     # if it is already SafeData (for example, when coming from the template
     # code), then mark_for_escaping would do nothing. We want to guarantee
     # a EscapeData return value in this filter though.
-    return mark_for_escaping(unicode(value))
+    return mark_for_escaping(str(value))
 
 
 from coffin.template import Library
